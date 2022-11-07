@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>大富翁v1.0</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./boxfly.js"></script>
+    <script src="./main.js"></script>
+    <script src="./communication.js"></script>
+    <script src="./dfw.js"></script>
+</head>
+<body>
+    
+  
+    <script>
+        var calX=calX(dfw.length)
+        var wid=0.7*document.body.clientWidth
+        var calsize=calsize(calX[0],calX[1],wid)
+        //console.log(b)
+        var boxCode=boxCode(calX[0],calX[1],dfw.length)
+        //console.log(boxCode)
+        var boxlist=setBox(calX[0],calX[1],dfw,boxCode,calsize)
+        //console.log(JSON.stringify(boxlist))
+        init_rec(2)
+    </script>
+    <div id="list">
+    <a style="background-color:#ffffff;width:70%;float:left;">
+        <template v-for="item in boxlist">
+            <div :style="item.css" style="word-break:break-all" id="item.number"><h2 style="margin-top:0%;margin-bottom:2px">{{item.number}}</h2>{{item.content}}</div>
+        </template>
+    </a>
+    <div style="background-color:#ffffff;width:29%;float:right;">
+        <div :style="{fontSize:calsize.perf+'%'}">
+        <h1>{{current.dice}}</h1>
+        <ul>
+            <template v-for="item in rec1">
+                <li style="color:green;word-break:break-all">跳到{{item.boxNum}}格：{{item.content}}</li>
+             </template>
+            
+        </ul>
+        <button @click="start1(1)">start1</button>
+        <ul>
+            <template v-for="item in rec2">
+                <li style="color:green">跳到{{item.boxNum}}格：{{item.content}}</li>
+             </template>
+            
+        </ul>
+        <button @click="start2(2)">start2</button>
+        </div>
+    </div>
+    </div>
+    
+        
+
+    <script type="module">
+        //vue
+        
+        const resultShow = {
+            data(){
+                return{
+                    boxlist:boxlist,
+                    rec1:rec[1],
+                    rec2:rec[2],
+                    rec3:rec[3],
+                    rec4:rec[4],
+                    current:{ dice: 0, boxNum: 0, content: '', done: 0 },
+                    calsize:calsize,
+                    log1:{1:1},
+                    log2:{1:1}
+                }
+            },
+            methods:{
+                start1(numm,mem){
+                    this.current=start(numm,0)
+                    //现在的格子
+                    num2XY(this.log1,boxCode,boxlist,'')
+                    num2XY(this.current,boxCode,boxlist,'cornsilk')
+                    
+                    this.log1=JSON.parse(JSON.stringify(this.current))
+                    this.$forceUpdate()     
+                },
+                start2(numm,mem){
+                    this.current=start(numm,0)
+                    //现在的格子
+                    num2XY(this.log2,boxCode,boxlist,'')
+                    num2XY(this.current,boxCode,boxlist,'aliceblue')
+                    
+                    this.log2=JSON.parse(JSON.stringify(this.current))
+                    this.$forceUpdate()     
+                }
+
+            }
+        }
+        Vue.createApp(resultShow).mount('#list')
+    </script>
+</body>
