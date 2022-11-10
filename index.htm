@@ -1,46 +1,43 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <title>大富翁v1.0</title>
+    <title>飞行棋v1.1</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="./boxfly.js"></script>
     <script src="./main.js"></script>
     <script src="./communication.js"></script>
     <script src="./dfw.js"></script>
 </head>
-<body>
-    
-  
+<body> 
     <script>
-        var calX=calX(dfw.length)
         var wid=0.7*document.body.clientWidth
-        var calsize=calsize(calX[0],calX[1],wid)
+        var calsize=calsize(dfw.length,wid,document.documentElement.clientHeight)
         //console.log(b)
-        var boxCode=boxCode(calX[0],calX[1],dfw.length)
+        var boxCode=boxCodeNew(calsize.x,calsize.y,dfw.length)
         //console.log(boxCode)
-        var boxlist=setBox(calX[0],calX[1],dfw,boxCode,calsize)
+        var boxlist=setBox (calsize.x,calsize.y,dfw,boxCode,calsize)
         //console.log(JSON.stringify(boxlist))
         init_rec(2)
     </script>
     <div id="list">
     <a style="background-color:#ffffff;width:70%;float:left;">
         <template v-for="item in boxlist">
-            <div :style="item.css" style="word-break:break-all" id="item.number"><h2 style="margin-top:0%;margin-bottom:2px">{{item.number}}</h2>{{item.content}}</div>
+            <div :style="item.css" style="word-break:break-all" id="item.number"><h3 style="margin-top:0%;margin-bottom:2px">{{item.number}}</h3>{{item.content}}</div>
         </template>
     </a>
     <div style="background-color:#ffffff;width:29%;float:right;">
-        <div :style="{fontSize:calsize.perf+'%'}">
+        <div :style="{fontSize:1.4*calsize.perf+'%'}">
         <h1>{{current.dice}}</h1>
         <ul>
             <template v-for="item in rec1">
-                <li style="color:green;word-break:break-all">跳到{{item.boxNum}}格：{{item.content}}</li>
+                <li style="color:rgb(161, 145, 87);word-break:break-all">跳到{{item.boxNum}}格：{{item.content}}</li>
              </template>
-            
+             <!--长度测试<li v-for="i in 999">test</li>-->
         </ul>
         <button @click="start1(1)">start1</button>
         <ul>
             <template v-for="item in rec2">
-                <li style="color:green">跳到{{item.boxNum}}格：{{item.content}}</li>
+                <li style="color:rgb(69, 123, 170)">跳到{{item.boxNum}}格：{{item.content}}</li>
              </template>
             
         </ul>
@@ -48,12 +45,8 @@
         </div>
     </div>
     </div>
-    
-        
-
     <script type="module">
-        //vue
-        
+        //vue 
         const resultShow = {
             data(){
                 return{
