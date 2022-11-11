@@ -24,7 +24,7 @@ function calsize(box,wid,hei){
         y:y,
         pad:pad,
         bor:bor,
-        perX:perX*100-0.02,
+        perX:perX*100-0.5,
         pxY:pxY,
         perf:perf
     }
