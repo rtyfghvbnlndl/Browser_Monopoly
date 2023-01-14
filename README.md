@@ -1,4 +1,5 @@
-# Browser_Monopoly
+# Browser_Monopoly飞行棋
+<a href="http://101.35.252.145/demo/fxq/">点我在线预览</a>  
 [html&amp;js]可自定义的大富翁/飞行棋。自动适配格子数，并记录每一步操作。
 ### 使用方法
 1. 把所有文件下载，放到一个文件夹。
